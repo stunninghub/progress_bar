@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Progress Bar</title>
+   <style>
+      body{
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         min-height: 100vh;
+         font-family: Arial, Helvetica, sans-serif;
+      }
+      .sh-progress{
+         position: relative;
+      }
+      .sh-progress-container{
+         width:300px;
+         height:50px;
+         background-color: #eee;
+         border-radius: 5px;
+         border:1px solid rgb(0 0 0 / 10%);
+         position: relative;
+         overflow: hidden;
+      }
+      .sh-progress-bar{
+         position: absolute;
+         width: 0%;
+         height:100%;
+         background:dodgerblue;
+         top:0px;
+         left:0px;
+         transition:all 0.2s;
+      }
+      .sh-progress-text{
+         position: absolute;
+         top:-40px;
+         left:0px;
+         background:orange;
+         width:40px;
+         height:30px;
+         font-size: 12px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         border-radius: 5px;
+         transform: translate(-19px, 0px);
+         transition:all 0.2s;
+      }
+      .sh-progress-text::after{
+         content:'';
+         border:8px solid orange;
+         border-bottom-color: transparent;
+         border-right-color: transparent;
+         border-left-color: transparent;
+         position:absolute;
+         bottom:-15px;
+         left:12px;
+      }
+   </style>
+</head>
+<body>
+   <div class="sh-progress">
+      <div class="sh-progress-container">
+         <div class="sh-progress-bar"></div>
+      </div>
+
+      <div class="sh-progress-text">100%</div>
+   </div>
+
+
+   <script>
+      var sh_progress_bar = document.querySelector('.sh-progress-bar'),
+         progress_width = 0,
+         progress_text = document.querySelector('.sh-progress-text'),
+         progress_interval = '';
+
+      function start_progress(){
+         progress_interval = setInterval(function(){
+            if(progress_width < 100){
+               progress_width += 1;
+               sh_progress_bar.style.width = progress_width+"%";
+
+               progress_text.innerHTML = progress_width+" %";
+               progress_text.style.left = progress_width+"%";
+            }else{
+               clearInterval(progress_interval);
+            }
+         }, 100);
+      }
+      start_progress();
+   </script>
+</body>
+</html>
